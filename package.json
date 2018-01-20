@@ -1,0 +1,22 @@
+{
+  "name": "uniquire",
+  "version": "1.0.0",
+  "description": "mock node modules, throwing execeptions if module that isn't mocked is required",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\""
+  },
+  "keywords": [
+    "unit",
+    "testing",
+    "require",
+    "mock"
+  ],
+  "author": "Paul Humphreys",
+  "license": "ISC",
+  "dependencies": {
+    "module-not-found-error": "^1.0.1",
+    "strip-bom": "^3.0.0",
+    "strip-shebang": "^1.0.2"
+  }
+}
