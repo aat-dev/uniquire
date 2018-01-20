@@ -8,16 +8,16 @@ const
   stripShebang = require('strip-shebang');
 
 module.exports = (filename, stubs) => {
-  filename = path.resolve(filename);
+  filename = path.resolve(path.dirname(module.parent.filename), filename);
   var dirname = path.dirname(filename);
-  var module = new Module(1, this.parent);
-  module.filename = filename;
+  var subModule = new Module(1, this.parent);
+  subModule.filename = filename;
 
   return vm.
     runInThisContext(
       '(function (exports, require, module, __filename, __dirname, process) { ' +
       stripShebang(stripBom(fs.readFileSync(filename, 'utf8'))) +
-      '\n});',
+      '\nreturn module.exports});',
       {
         filename,
         lineOffset: 0,
@@ -25,15 +25,15 @@ module.exports = (filename, stubs) => {
       }
     ).
     call(
-      module.exports,
-      module.exports,
+      subModule.exports,
+      subModule.exports,
       name => {
         if(!stubs.hasOwnProperty(name)) {
           throw moduleNotFoundError(name);          
         }
         return stubs[name];
       },
-      module,
+      subModule,
       filename,
       dirname,
       null
