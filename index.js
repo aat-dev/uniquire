@@ -36,6 +36,6 @@ module.exports = (filename, stubs) => {
       subModule,
       filename,
       dirname,
-      null
+      { env: {} }
     );
 }
