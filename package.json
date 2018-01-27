@@ -1,6 +1,6 @@
 {
   "name": "uniquire",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "mock node modules, throwing execeptions if module that isn't mocked is required",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,10 @@
   "author": "Paul Humphreys",
   "license": "ISC",
   "dependencies": {
+    "fs-walk": "0.0.1",
+    "istanbul": "^0.4.5",
     "module-not-found-error": "^1.0.1",
+    "multimatch": "^2.1.0",
     "strip-bom": "^3.0.0",
     "strip-shebang": "^1.0.2"
   },
