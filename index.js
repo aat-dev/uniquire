@@ -72,7 +72,7 @@ if(process.env.hasOwnProperty('UNIQUIRE_COVERAGE_FILE')) {
   });
 }
 
-module.exports = (filename, stubs, stubProcess) => {
+module.exports = (filename, stubs, stubGlobals) => {
   filename = path.resolve(path.dirname(module.parent.filename), filename);
   var dirname = path.dirname(filename);
   var subModule = new Module(1, this.parent);
@@ -89,9 +89,12 @@ module.exports = (filename, stubs, stubProcess) => {
     content = instrumenter.instrumentSync(content, name);
   }
 
+  stubGlobals = stubGlobals ? stubGlobals : { process: { env: {} } };
+
   const retval = vm.
     runInThisContext(
-      '(function (exports, require, module, __filename, __dirname, process) { ' +
+      '(function (exports, require, module, __filename, __dirname, __uniquire__) { ' +
+      'var {' + (Object.keys(stubGlobals).join(',')) + '} = __uniquire__;' +
       content +
       '\nreturn { exports: module.exports'+(coverage?',__coverage__':'')+' }});',
       {
@@ -112,7 +115,7 @@ module.exports = (filename, stubs, stubProcess) => {
       subModule,
       filename,
       dirname,
-      stubProcess ? stubProcess : { env: {} }
+      stubGlobals
     );
 
   if(coverage) {
