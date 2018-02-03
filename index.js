@@ -13,7 +13,7 @@ const
 
 let coverage = false, istanbul = null, coverageFiles = [], extraFiles = [], coverageMap = {};
 
-if(process.env.hasOwnProperty('UNIQUIRE_COVERAGE_FILE')) {
+if(istanbul === null && process.env.hasOwnProperty('UNIQUIRE_COVERAGE_FILE')) {
   coverage = true;
 
   istanbul = require('istanbul');
