@@ -1,6 +1,6 @@
 {
   "name": "uniquire",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "mock node modules, throwing execeptions if module that isn't mocked is required",
   "main": "index.js",
   "scripts": {
